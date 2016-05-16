@@ -32,8 +32,8 @@ export default class Selection {
         this.init();
     }
 
-    formatDuration(duration) {
-        return moment.duration(duration, 'seconds').format(this.durationFormat, {trim: false});
+    formatDuration() {
+        return moment.duration(this.value, 'seconds').format(this.durationFormat, {trim: false});
     }
 
     setSelection(input) {
@@ -43,8 +43,26 @@ export default class Selection {
         }, 0);
     }
 
+    decrement(amount) {
+        if ((this.value - amount) < 0) {
+            this.value = this.value + MAX - amount + 1;
+        }
+        else {
+            this.value -= amount; 
+        }
+    }
+
+    increment(amount) {
+        if ((this.value + amount) > MAX) {
+            this.value = this.value - MAX + amount - 1;
+        }
+        else {
+            this.value += amount;
+        }
+    }
+
     init() {
-        this.el.value = this.formatDuration(this.value);
+        this.el.value = this.formatDuration();
 
         this.el.addEventListener("click", (e) => {
             e.preventDefault();
@@ -69,23 +87,12 @@ export default class Selection {
 
             switch(e.which) {
                 case KEYUP:
-                    if ((this.value + data.increment) > MAX) {
-                        this.value = this.value - MAX + data.increment - 1;
-                    }
-                    else {
-                        this.value += data.increment;
-                    }
-                    input.value = this.formatDuration(this.value);
+                    this.increment(data.increment);
+                    input.value = this.formatDuration();
                     break;
                 case KEYDOWN:
-                    
-                    if ((this.value - data.increment) < 0) {
-                        this.value = this.value + MAX - data.increment + 1;
-                    }
-                    else {
-                        this.value -= data.increment; 
-                    }
-                    input.value = this.formatDuration(this.value);
+                    this.decrement(data.increment);
+                    input.value = this.formatDuration();
                     break;
                 case KEYLEFT:
                     this.index -= 1;
@@ -93,6 +100,18 @@ export default class Selection {
                 case KEYRIGHT:
                     this.index += 1;
                     break;
+                case 48:
+                case 49:
+                case 50:
+                case 51:
+                case 52:
+                case 53:
+                case 54:
+                case 55:
+                case 56:
+                case 57:
+                    break;
+
             }
 
             this.setSelection(input);
