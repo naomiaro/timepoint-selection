@@ -35,6 +35,8 @@ var formatSelectionPoints = {
     ]
 };
 
+const MAX = 3600 * 99 + 60 * 59 + 1 * 59;
+
 const KEYLEFT = 37;
 const KEYUP = 38;
 const KEYRIGHT = 39;
@@ -84,11 +86,22 @@ export default class Selection {
 
                     switch(e.which) {
                         case KEYUP:
-                            this.value += this.data.increment;
+                            if ((this.value + this.data.increment) > MAX) {
+                                this.value = this.value - MAX;
+                            }
+                            else {
+                                this.value += this.data.increment;
+                            }
                             input.value = this.formatDuration(this.value);
                             break;
                         case KEYDOWN:
-                            this.value -= this.data.increment;
+                            
+                            if ((this.value - this.data.increment) < 0) {
+                                this.value = this.value + MAX;
+                            }
+                            else {
+                                this.value -= this.data.increment; 
+                            }
                             input.value = this.formatDuration(this.value);
                             break;
                         case KEYLEFT:
