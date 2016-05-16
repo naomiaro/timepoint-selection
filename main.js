@@ -9,30 +9,18 @@ import createElement from 'virtual-dom/create-element';
 import Delegator from 'dom-delegator';
 import EventEmitter from 'event-emitter';
 
-// hh:mm:ss
-var hh,mm,ss;
 
-hh = {start: 0, end: 2, increment: 3600};
-mm = {start: 3, end: 5, increment: 60};
-ss = {start: 6, end: 8, increment: 1};
+let units = [
+    {start: 0, end: 1, increment: 36000},
+    {start: 1, end: 2, increment: 3600},
+    {start: 3, end: 4, increment: 600},
+    {start: 4, end: 5, increment: 60},
+    {start: 6, end: 7, increment: 10},
+    {start: 7, end: 8, increment: 1}
+];
 
-hh.next = mm;
-mm.prev = hh;
-mm.next = ss;
-ss.prev = mm;
-
-var formatSelectionPoints = {
-    'hh:mm:ss': [
-        hh, //0
-        hh, //1
-        hh, //2
-        mm, //3
-        mm, //4
-        mm, //5
-        ss, //6
-        ss, //7
-        ss  //8
-    ]
+let formatSelectionPoints = {
+    'hh:mm:ss': [0, 1, 1, 2, 3, 3, 4, 5, 5]
 };
 
 const MAX = 3600 * 99 + 60 * 59 + 1 * 59;
@@ -47,16 +35,17 @@ export default class Selection {
     constructor() {
         this.durationFormat = 'hh:mm:ss';
         this.value = 0;
-        this.data = undefined;
+        this.index = undefined;
     }
 
     formatDuration(duration) {
         return moment.duration(duration, 'seconds').format(this.durationFormat, {trim: false});
     }
 
-    setSelection(input, start, end) {
+    setSelection(input) {
         setTimeout(() => {
-            input.setSelectionRange(start, end);
+            let data = units[this.index];
+            input.setSelectionRange(data.start, data.end);
         }, 0);
     }
 
@@ -69,10 +58,11 @@ export default class Selection {
                     e.preventDefault();
 
                     let input = e.target;
-                    let data = formatSelectionPoints[this.durationFormat][input.selectionStart];
+                    let index = formatSelectionPoints[this.durationFormat][input.selectionStart];
+                    let data = units[index];
 
                     this.setSelection(e.target, data.start, data.end);
-                    this.data = data;
+                    this.index = index;
                 },
                 'ev-keydown': (e) => {
                     e.preventDefault();
@@ -81,38 +71,37 @@ export default class Selection {
                     e.preventDefault();
 
                     let input = e.target;
-
-                    console.log(e);
+                    let data = units[this.index]
 
                     switch(e.which) {
                         case KEYUP:
-                            if ((this.value + this.data.increment) > MAX) {
-                                this.value = this.value - MAX + this.data.increment - 1;
+                            if ((this.value + data.increment) > MAX) {
+                                this.value = this.value - MAX + data.increment - 1;
                             }
                             else {
-                                this.value += this.data.increment;
+                                this.value += data.increment;
                             }
                             input.value = this.formatDuration(this.value);
                             break;
                         case KEYDOWN:
                             
-                            if ((this.value - this.data.increment) < 0) {
-                                this.value = this.value + MAX - this.data.increment + 1;
+                            if ((this.value - data.increment) < 0) {
+                                this.value = this.value + MAX - data.increment + 1;
                             }
                             else {
-                                this.value -= this.data.increment; 
+                                this.value -= data.increment; 
                             }
                             input.value = this.formatDuration(this.value);
                             break;
                         case KEYLEFT:
-                            this.data = this.data.prev;
+                            this.index -= 1;
                             break;
                         case KEYRIGHT:
-                            this.data = this.data.next;
+                            this.index += 1;
                             break;
                     }
 
-                    this.setSelection(input, this.data.start, this.data.end);
+                    this.setSelection(input);
                 }
             })
         );
