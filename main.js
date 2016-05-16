@@ -87,7 +87,7 @@ export default class Selection {
                     switch(e.which) {
                         case KEYUP:
                             if ((this.value + this.data.increment) > MAX) {
-                                this.value = this.value - MAX;
+                                this.value = this.value - MAX + this.data.increment - 1;
                             }
                             else {
                                 this.value += this.data.increment;
@@ -97,7 +97,7 @@ export default class Selection {
                         case KEYDOWN:
                             
                             if ((this.value - this.data.increment) < 0) {
-                                this.value = this.value + MAX;
+                                this.value = this.value + MAX - this.data.increment + 1;
                             }
                             else {
                                 this.value -= this.data.increment; 
