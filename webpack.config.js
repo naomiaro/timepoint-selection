@@ -4,7 +4,7 @@ module.exports = {
     path:  __dirname + "/dist/js",
     publicPath: "/js/",
     filename: 'timepoint-selection.var.js',
-    library: 'TimepointSelection',
+    library: 'selection',
     libraryTarget: 'var'
   },
   devtool: "#source-map",
