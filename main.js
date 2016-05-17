@@ -11,7 +11,7 @@ let units = [
 ];
 
 let formatSelectionPoints = {
-    'hh:mm:ss': [0, 1, 1, 2, 3, 3, 4, 5, 5]
+    'hh:mm:ss': [0, 0, 1, 2, 2, 3, 4, 4, 5]
 };
 
 const MAX = 3600 * 99 + 60 * 59 + 1 * 59;
@@ -67,6 +67,14 @@ export default class Selection {
         }
     }
 
+    getDigit(e) {
+        if (e.key) {
+            return Number(e.key);
+        }
+
+        return ((e.which || e.keyCode) - 48);
+    }
+
     init() {
         this.el.value = this.formatDuration();
 
@@ -82,22 +90,37 @@ export default class Selection {
 
             let data = units[this.index]
             let input = this.el;
+            let key = e.key || e.which || e.keyCode;
 
-            switch(e.which) {
+            switch(key) {
+                case "ArrowUp":
                 case KEYUP:
                     this.increment(data.increment);
                     input.value = this.formatDuration();
                     break;
+                case "ArrowDown":
                 case KEYDOWN:
                     this.decrement(data.increment);
                     input.value = this.formatDuration();
                     break;
+                case "ArrowLeft":
                 case KEYLEFT:
                     this.index -= 1;
                     break;
+                case "ArrowRight":
                 case KEYRIGHT:
                     this.index += 1;
                     break;
+                case "0":
+                case "1":
+                case "2":
+                case "3":
+                case "4":
+                case "5":
+                case "6":
+                case "7":
+                case "8":
+                case "9":
                 case 48:
                 case 49:
                 case 50:
@@ -108,7 +131,7 @@ export default class Selection {
                 case 55:
                 case 56:
                 case 57:
-                    let number = e.which - 48;
+                    let number = this.getDigit(e);
                     let prev = Number(this.formatDuration().substring(data.start, data.end));
                     let amount = number * data.increment - prev * data.increment;
 
@@ -116,7 +139,6 @@ export default class Selection {
                     this.index += 1;
                     input.value = this.formatDuration();
                     break;
-
             }
 
             this.setSelection();
