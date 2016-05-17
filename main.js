@@ -113,11 +113,10 @@ class Selection {
         });
 
         this.el.addEventListener("keydown", (e) => {
-            e.preventDefault();
-
             let data = this.units[this.index]
             let input = this.el;
             let key = e.key || e.which || e.keyCode;
+            let keyMatters = true;
 
             switch(key) {
                 case "ArrowUp":
@@ -166,9 +165,14 @@ class Selection {
                     this.index += 1;
                     input.value = this.formatDuration();
                     break;
+                default:
+                    keyMatters = false;
             }
 
-            this.setSelection();
+            if (keyMatters) {
+                e.preventDefault();
+                this.setSelection();
+            }
         });
     }
 }
