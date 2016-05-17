@@ -38,6 +38,12 @@ export default class Selection {
 
     setSelection(input) {
         let data = units[this.index];
+
+        if (data === undefined) {
+            input.blur();
+            return;
+        }
+
         setTimeout(() => {
             input.setSelectionRange(data.start, data.end);
         }, 0);
@@ -68,8 +74,7 @@ export default class Selection {
             e.preventDefault();
 
             let input = e.target;
-            let index = formatSelectionPoints[this.durationFormat][input.selectionStart];
-            this.index = index;
+            this.index = formatSelectionPoints[this.durationFormat][input.selectionStart];
             this.setSelection(e.target);
         });
 
@@ -119,9 +124,7 @@ export default class Selection {
 
             }
 
-            if (this.index >= 0 || this.index < this.units.length) {
-                this.setSelection(input);
-            }
+            this.setSelection(input);
         });
     }
 }
