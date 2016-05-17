@@ -26,7 +26,7 @@ const KEYRIGHT = 39;
 const KEYDOWN = 40;
 
 
-export default class Selection {
+class Selection {
     constructor(el, options) {
         this.durationFormat = options.durationFormat || 'hh:mm:ss';
         this.value = 0;
