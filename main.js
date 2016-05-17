@@ -112,6 +112,16 @@ class Selection {
             this.setSelection();
         });
 
+        this.el.addEventListener("focus", (e) => {
+            e.preventDefault();
+
+            this.index = 0;
+
+            setTimeout(() => {
+               this.setSelection(); 
+           }, 0); 
+        });
+
         this.el.addEventListener("keydown", (e) => {
             let data = this.units[this.index]
             let input = this.el;
