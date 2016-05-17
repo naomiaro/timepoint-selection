@@ -50,6 +50,7 @@ export default class Selection {
 
         this.units = units.slice(...unitView[this.durationFormat]);
 
+        //create start & end for input selection (excluding :)
         this.durationFormat.split(':').forEach((val, i) => {
             this.units[i*2].start = i*3;
             this.units[i*2].end = i*3 + 1;
@@ -57,8 +58,6 @@ export default class Selection {
             this.units[i*2+1].start = i*3 + 1;
             this.units[i*2+1].end = i*3 + 2;
         });
-
-        console.log(this.units);
     }
 
     formatDuration() {
