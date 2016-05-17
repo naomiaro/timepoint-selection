@@ -31,7 +31,7 @@ export default class Selection {
         this.durationFormat = options.durationFormat || 'hh:mm:ss';
         this.value = 0;
         this.index = undefined;
-        this.max = Math.max(options.max || 0, maxValue[this.durationFormat]);
+        this.max = Math.min(options.max || Infinity, maxValue[this.durationFormat]);
         this.el = el;
 
         this.setUnits();
