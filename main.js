@@ -36,16 +36,16 @@ export default class Selection {
         return moment.duration(this.value, 'seconds').format(this.durationFormat, {trim: false});
     }
 
-    setSelection(input) {
+    setSelection() {
         let data = units[this.index];
 
         if (data === undefined) {
-            input.blur();
+            this.el.blur();
             return;
         }
 
         setTimeout(() => {
-            input.setSelectionRange(data.start, data.end);
+            this.el.setSelectionRange(data.start, data.end);
         }, 0);
     }
 
@@ -73,20 +73,15 @@ export default class Selection {
         this.el.addEventListener("click", (e) => {
             e.preventDefault();
 
-            let input = e.target;
-            this.index = formatSelectionPoints[this.durationFormat][input.selectionStart];
-            this.setSelection(e.target);
+            this.index = formatSelectionPoints[this.durationFormat][this.el.selectionStart];
+            this.setSelection();
         });
 
         this.el.addEventListener("keydown", (e) => {
             e.preventDefault();
-        });
 
-        this.el.addEventListener("keyup", (e) => {
-            e.preventDefault();
-
-            let input = e.target;
             let data = units[this.index]
+            let input = this.el;
 
             switch(e.which) {
                 case KEYUP:
@@ -124,7 +119,11 @@ export default class Selection {
 
             }
 
-            this.setSelection(input);
+            this.setSelection();
+        });
+
+        this.el.addEventListener("keyup", (e) => {
+            e.preventDefault();
         });
     }
 }
