@@ -11,10 +11,22 @@ let units = [
 ];
 
 let formatSelectionPoints = {
-    'hh:mm:ss': [0, 0, 1, 2, 2, 3, 4, 4, 5]
+    'hh:mm:ss': [0, 0, 1, 2, 2, 3, 4, 4, 5],
+    'hh:mm': [0, 0, 1, 2, 2, 3],
+    'mm:ss': [0, 0, 1, 2, 2, 3]
 };
 
-const MAX = 3600 * 99 + 60 * 59 + 1 * 59;
+let unitView = {
+    'hh:mm:ss': [],
+    'hh:mm': [0, 4],
+    'mm:ss': [2, 6]
+}
+
+let maxValue = {
+    'hh:mm:ss': 3600 * 100,
+    'hh:mm': 3600 * 100,
+    'mm:ss': 60 * 100
+}
 
 const KEYLEFT = 37;
 const KEYUP = 38;
@@ -24,12 +36,18 @@ const KEYDOWN = 40;
 
 export default class Selection {
     constructor(el, options) {
-        this.durationFormat = 'hh:mm:ss';
+        this.durationFormat = options.durationFormat || 'hh:mm:ss';
         this.value = 0;
         this.index = undefined;
+        this.max = Math.max(options.max || 0, maxValue[this.durationFormat]);
         this.el = el;
 
+        this.setUnits();
         this.init();
+    }
+
+    setUnits() {
+        this.units = units.slice(...unitView[this.durationFormat]);  
     }
 
     formatDuration() {
@@ -37,7 +55,7 @@ export default class Selection {
     }
 
     setSelection() {
-        let data = units[this.index];
+        let data = this.units[this.index];
 
         if (data === undefined) {
             this.el.blur();
@@ -50,7 +68,7 @@ export default class Selection {
 
     decrement(amount) {
         if ((this.value - amount) < 0) {
-            this.value = this.value + MAX - amount + 1;
+            this.value = this.value + this.max - amount;
         }
         else {
             this.value -= amount; 
@@ -58,8 +76,8 @@ export default class Selection {
     }
 
     increment(amount) {
-        if ((this.value + amount) > MAX) {
-            this.value = this.value - MAX + amount - 1;
+        if ((this.value + amount) >= this.max) {
+            this.value = this.value - this.max + amount;
         }
         else {
             this.value += amount;
@@ -87,7 +105,7 @@ export default class Selection {
         this.el.addEventListener("keydown", (e) => {
             e.preventDefault();
 
-            let data = units[this.index]
+            let data = this.units[this.index]
             let input = this.el;
             let key = e.key || e.which || e.keyCode;
 
