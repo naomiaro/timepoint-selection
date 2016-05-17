@@ -44,9 +44,8 @@ export default class Selection {
             return;
         }
 
-        setTimeout(() => {
-            this.el.setSelectionRange(data.start, data.end);
-        }, 0);
+        this.el.selectionStart = data.start;
+        this.el.selectionEnd = data.end;
     }
 
     decrement(amount) {
@@ -142,10 +141,6 @@ export default class Selection {
             }
 
             this.setSelection();
-        });
-
-        this.el.addEventListener("keyup", (e) => {
-            e.preventDefault();
         });
     }
 }
