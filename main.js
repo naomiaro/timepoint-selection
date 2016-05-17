@@ -37,8 +37,8 @@ export default class Selection {
     }
 
     setSelection(input) {
+        let data = units[this.index];
         setTimeout(() => {
-            let data = units[this.index];
             input.setSelectionRange(data.start, data.end);
         }, 0);
     }
@@ -69,10 +69,8 @@ export default class Selection {
 
             let input = e.target;
             let index = formatSelectionPoints[this.durationFormat][input.selectionStart];
-            let data = units[index];
-
-            this.setSelection(e.target, data.start, data.end);
             this.index = index;
+            this.setSelection(e.target);
         });
 
         this.el.addEventListener("keydown", (e) => {
@@ -121,7 +119,9 @@ export default class Selection {
 
             }
 
-            this.setSelection(input);
+            if (this.index >= 0 || this.index < this.units.length) {
+                this.setSelection(input);
+            }
         });
     }
 }
