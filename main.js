@@ -1,14 +1,6 @@
 import moment from 'moment';
 import 'moment-duration-format';
 
-let units = [
-    {start: 0, end: 1, increment: 36000},
-    {start: 1, end: 2, increment: 3600},
-    {start: 3, end: 4, increment: 600},
-    {start: 4, end: 5, increment: 60},
-    {start: 6, end: 7, increment: 10},
-    {start: 7, end: 8, increment: 1}
-];
 
 let formatSelectionPoints = {
     'hh:mm:ss': [0, 0, 1, 2, 2, 3, 4, 4, 5],
@@ -47,7 +39,26 @@ export default class Selection {
     }
 
     setUnits() {
-        this.units = units.slice(...unitView[this.durationFormat]);  
+        let units = [
+            {increment: 36000},
+            {increment: 3600},
+            {increment: 600},
+            {increment: 60},
+            {increment: 10},
+            {increment: 1}
+        ];
+
+        this.units = units.slice(...unitView[this.durationFormat]);
+
+        this.durationFormat.split(':').forEach((val, i) => {
+            this.units[i*2].start = i*3;
+            this.units[i*2].end = i*3 + 1;
+
+            this.units[i*2+1].start = i*3 + 1;
+            this.units[i*2+1].end = i*3 + 2;
+        });
+
+        console.log(this.units);
     }
 
     formatDuration() {
