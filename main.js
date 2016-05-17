@@ -162,7 +162,7 @@ export default class Selection {
                     let prev = Number(this.formatDuration().substring(data.start, data.end));
                     let amount = number * data.increment - prev * data.increment;
 
-                    this.value += amount;
+                    this.increment(amount);
                     this.index += 1;
                     input.value = this.formatDuration();
                     break;
