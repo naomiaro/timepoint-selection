@@ -127,20 +127,24 @@ class Selection {
 
             this.index = formatSelectionPoints[this.durationFormat][this.el.selectionStart];
             this.setSelection();
+            this.mousedown = false;
         };
 
         this.onfocus = (e) => {
             e.preventDefault();
 
-            this.index = 0;
-
-            //focus was from tab not click
-            if (this.el.selectionEnd - this.el.selectionStart === this.durationFormat.length ||
-                this.el.selectionEnd === 0 && this.el.selectionStart === 0) {
+            //focus was from tab not click.
+            //click event always follows focus.
+            if (this.mousedown !== true) {
+                this.index = 0;
                 window.requestAnimationFrame(() => {
                     this.el.setSelectionRange(0, 1);
                 });
             }
+        };
+
+        this.onmousedown = () => {
+            this.mousedown = true;
         };
 
         this.onkeydown = (e) => {
@@ -209,12 +213,17 @@ class Selection {
         };
 
         this.el.value = this.formatDuration();
-
         this.el.addEventListener("click", this.onclick);
-
+        this.el.addEventListener("mousedown", this.onmousedown);
         this.el.addEventListener("focus", this.onfocus);
-
         this.el.addEventListener("keydown", this.onkeydown);
+    }
+
+    destroy() {
+        this.el.removeEventListener("click", this.onclick);
+        this.el.removeEventListener("mousedown", this.onmousedown);
+        this.el.removeEventListener("focus", this.onfocus);
+        this.el.removeEventListener("keydown", this.onkeydown);
     }
 }
 
