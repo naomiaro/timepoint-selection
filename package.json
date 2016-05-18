@@ -6,6 +6,12 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "babel": {
+    "presets": [
+      "es2015",
+      "stage-0"
+    ]
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/naomiaro/timepoint-selection.git"
@@ -15,7 +21,9 @@
     "point",
     "selection",
     "duration",
-    "key"
+    "key",
+    "input",
+    "format"
   ],
   "author": "Naomi Aro <naomiaro@gmail.com> (http://naomiaro.github.io/)",
   "license": "MIT",
