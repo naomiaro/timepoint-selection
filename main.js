@@ -122,26 +122,28 @@ class Selection {
     }
 
     init() {
-        this.el.value = this.formatDuration();
-
-        this.el.addEventListener("click", (e) => {
+        this.onclick = (e) => {
             e.preventDefault();
 
             this.index = formatSelectionPoints[this.durationFormat][this.el.selectionStart];
             this.setSelection();
-        });
+        };
 
-        this.el.addEventListener("focus", (e) => {
+        this.onfocus = (e) => {
             e.preventDefault();
 
             this.index = 0;
 
-            setTimeout(() => {
-               this.setSelection(); 
-           }, 0); 
-        });
+            //focus was from tab not click
+            if (this.el.selectionEnd - this.el.selectionStart === this.durationFormat.length ||
+                this.el.selectionEnd === 0 && this.el.selectionStart === 0) {
+                window.requestAnimationFrame(() => {
+                    this.el.setSelectionRange(0, 1);
+                });
+            }
+        };
 
-        this.el.addEventListener("keydown", (e) => {
+        this.onkeydown = (e) => {
             let data = this.units[this.index]
             let key = e.key || e.which || e.keyCode;
             let shouldPreventDefault = true;
@@ -204,7 +206,15 @@ class Selection {
             }
 
             this.setSelection();
-        });
+        };
+
+        this.el.value = this.formatDuration();
+
+        this.el.addEventListener("click", this.onclick);
+
+        this.el.addEventListener("focus", this.onfocus);
+
+        this.el.addEventListener("keydown", this.onkeydown);
     }
 }
 
