@@ -76,6 +76,10 @@ class Selection {
         this.el.selectionEnd = data.end;
     }
 
+    displayValue(value) {
+        this.el.value = value;
+    }
+
     decrement(amount) {
         if ((this.value - amount) < 0) {
             this.value = this.value + this.max - amount;
@@ -124,20 +128,19 @@ class Selection {
 
         this.el.addEventListener("keydown", (e) => {
             let data = this.units[this.index]
-            let input = this.el;
             let key = e.key || e.which || e.keyCode;
-            let keyMatters = true;
+            let shouldPreventDefault = true;
 
             switch(key) {
                 case "ArrowUp":
                 case KEYUP:
                     this.increment(data.increment);
-                    input.value = this.formatDuration();
+                    this.displayValue(this.formatDuration());
                     break;
                 case "ArrowDown":
                 case KEYDOWN:
                     this.decrement(data.increment);
-                    input.value = this.formatDuration();
+                    this.displayValue(this.formatDuration());
                     break;
                 case "ArrowLeft":
                 case KEYLEFT:
@@ -173,16 +176,19 @@ class Selection {
 
                     this.increment(amount);
                     this.index += 1;
-                    input.value = this.formatDuration();
+                    this.displayValue(this.formatDuration());
                     break;
-                default:
-                    keyMatters = false;
+                case "Tab":
+                case 9:
+                    shouldPreventDefault = false;
+                    break;
             }
 
-            if (keyMatters) {
+            if (shouldPreventDefault) {
                 e.preventDefault();
-                this.setSelection();
             }
+
+            this.setSelection();
         });
     }
 }
