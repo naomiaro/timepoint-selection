@@ -80,9 +80,22 @@ class Selection {
         this.el.value = value;
     }
 
+    getNormalizedMax() {
+        let data = this.units[this.index];
+        let max = this.max;
+
+        if (this.max % data.increment !== 0) {
+            max = this.max + data.increment - (this.max % data.increment);
+        }
+
+        return max;
+    }
+
     decrement(amount) {
+        let max = this.getNormalizedMax();
+
         if ((this.value - amount) < 0) {
-            this.value = this.value + this.max - amount;
+            this.value = this.value + max - amount;
         }
         else {
             this.value -= amount; 
@@ -90,8 +103,10 @@ class Selection {
     }
 
     increment(amount) {
+        let max = this.getNormalizedMax();
+
         if ((this.value + amount) >= this.max) {
-            this.value = this.value - this.max + amount;
+            this.value = this.value - max + amount;
         }
         else {
             this.value += amount;
