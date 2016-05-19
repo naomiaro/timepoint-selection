@@ -11,10 +11,13 @@ Enhance input elements with easy key entry and validation for durations. Can inp
 ```javascript
 var selection = require('timepoint-selection');
 
-selection(document.getElementById("input"), {
+var timepoint = selection(document.getElementById("input"), {
     'durationFormat': 'hh:mm:ss',
     'max': 3600 * 24
 });
+
+//remove all the event listeners from the input.
+timepoint.destroy();
 ```
 
 ## Development
