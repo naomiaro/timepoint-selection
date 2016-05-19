@@ -14,8 +14,8 @@ Enhance input elements with easy key entry and validation for durations. Can inp
 var selection = require('timepoint-selection');
 
 var timepoint = selection(document.getElementById("input"), {
-    'durationFormat': 'hh:mm:ss',
-    'max': 3600 * 24
+    'durationFormat': 'hh:mm:ss', // (hh:mm:ss or hh:mm)
+    'max': 3600 * 24 // point of rollover in seconds.
 });
 
 //remove all the event listeners from the input.
