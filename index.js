@@ -132,7 +132,7 @@ var Selection = function () {
             var max = this.getNormalizedMax();
 
             if (this.value + amount >= this.max) {
-                this.value = this.value - max + amount;
+                this.value = this.value - this.max + amount;
             } else {
                 this.value += amount;
             }
