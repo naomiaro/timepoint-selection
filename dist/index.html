@@ -7,7 +7,9 @@
     <meta name="description" content="Key controlled time input duration selection." />
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
-
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
     <script type="text/javascript" src="js/timepoint-selection.var.js"></script>
 
   </head>
@@ -26,12 +28,12 @@
         <label for="ex1">hh:mm:ss max 99:59:59</label>
         <input id="ex1" type="text" class="form-control">
       </div>
-<pre><code>selection(document.getElementById("ex1"));</code></pre>
+<pre><code class="javascript">selection(document.getElementById("ex1"));</code></pre>
       <div class="form-group">
         <label for="ex2">hh:mm:ss max 23:59:59</label>
         <input id="ex2" type="text" class="form-control">
       </div>
-<pre><code>selection(document.getElementById("ex2"), {
+<pre><code class="javascript">selection(document.getElementById("ex2"), {
   'durationFormat': 'hh:mm:ss',
   'max': 3600 * 24
 });</code></pre>
@@ -39,14 +41,14 @@
         <label for="ex3">hh:mm max 99:59</label>
         <input id="ex3" type="text" class="form-control">
       </div>
-<pre><code>selection(document.getElementById("ex3"), {
+<pre><code class="javascript">selection(document.getElementById("ex3"), {
   'durationFormat': 'hh:mm'
 });</code></pre>
       <div class="form-group">
         <label for="ex4">hh:mm max 11:59</label>
         <input id="ex4" type="text" class="form-control">
       </div>
-<pre><code>selection(document.getElementById("ex4"), {
+<pre><code class="javascript">selection(document.getElementById("ex4"), {
   'durationFormat': 'hh:mm',
   'max': 3600 * 12
 });</code></pre>
