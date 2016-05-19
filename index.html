@@ -18,44 +18,38 @@
 
       <h1>timepoint-selection</h1>
 
+      <pre><code>npm install timepoint-selection</code></pre>
+
       <p class="lead">Enhance input elements with easy key entry and validation for durations. Can input numbers directly or increment and decrement with up and down arrow keys. Rollover is automatically handled. Left and right arrow keys navigate through the input selecting the next important character for entry. Tabbing into an element automatically selects the first character in the input for easier entry.</p>
 
       <div class="form-group">
         <label for="ex1">hh:mm:ss max 99:59:59</label>
         <input id="ex1" type="text" class="form-control">
       </div>
-      <pre>
-        selection(document.getElementById("ex1"));
-      </pre>
+<pre><code>selection(document.getElementById("ex1"));</code></pre>
       <div class="form-group">
         <label for="ex2">hh:mm:ss max 23:59:59</label>
         <input id="ex2" type="text" class="form-control">
       </div>
-      <pre>
-        selection(document.getElementById("ex2"), {
-            'durationFormat': 'hh:mm:ss',
-            'max': 3600 * 24
-        });
-      </pre>
+<pre><code>selection(document.getElementById("ex2"), {
+  'durationFormat': 'hh:mm:ss',
+  'max': 3600 * 24
+});</code></pre>
       <div class="form-group">
         <label for="ex3">hh:mm max 99:59</label>
         <input id="ex3" type="text" class="form-control">
       </div>
-      <pre>
-        selection(document.getElementById("ex3"), {
-            'durationFormat': 'hh:mm'
-        });
-      </pre>
+<pre><code>selection(document.getElementById("ex3"), {
+  'durationFormat': 'hh:mm'
+});</code></pre>
       <div class="form-group">
         <label for="ex4">hh:mm max 11:59</label>
         <input id="ex4" type="text" class="form-control">
       </div>
-      <pre>
-        selection(document.getElementById("ex4"), {
-            'durationFormat': 'hh:mm',
-            'max': 3600 * 12
-        });
-      </pre>
+<pre><code>selection(document.getElementById("ex4"), {
+  'durationFormat': 'hh:mm',
+  'max': 3600 * 12
+});</code></pre>
     </section>
    
     <script type="text/javascript" src="example.js"></script>
