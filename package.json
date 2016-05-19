@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "compile": "babel main.js --out-file index.js",
+    "deploy": "webpack && gh-pages -d dist -b gh-pages -o origin",
     "prepublish": "npm run compile",
     "start": "node_modules/webpack-dev-server/bin/webpack-dev-server.js --content-base dist/ --colors"
   },
