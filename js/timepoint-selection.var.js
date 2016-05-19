@@ -176,8 +176,10 @@ var selection =
 	    }, {
 	        key: 'increment',
 	        value: function increment(amount) {
+	            var max = this.getNormalizedMax();
+	
 	            if (this.value + amount >= this.max) {
-	                this.value = this.value - this.max + amount;
+	                this.value = Math.max(this.value - max + amount, 0);
 	            } else {
 	                this.value += amount;
 	            }
