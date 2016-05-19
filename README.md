@@ -2,6 +2,8 @@
 
 Enhance input elements with easy key entry and validation for durations. Can input numbers directly or increment and decrement with up and down arrow keys. Rollover is automatically handled. Left and right arrow keys navigate through the input selecting the next important character for entry. Tabbing into an element automatically selects the first character in the input for easier entry.
 
+![Screenshot](pic.png?raw=true "23:59:59 limited selection")
+
 ## Installation
 
   `npm install timepoint-selection`
