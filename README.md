@@ -24,7 +24,7 @@ timepoint.destroy();
 
 ## Development
 
-  `npm run start`
+  `npm run start` runs the webpack dev server.
 
 ## License
 
