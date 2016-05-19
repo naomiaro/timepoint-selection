@@ -11,7 +11,7 @@ selection(document.getElementById("hhmm"), {
 
 selection(document.getElementById("hhmmmax"), {
     'durationFormat': 'hh:mm',
-    'max': 3600 * 24
+    'max': 3600 * 12
 });
 
 selection(document.getElementById("mmss"), {
