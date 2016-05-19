@@ -13,22 +13,44 @@
   </head>
   <body>
 
-    <div>
-      <label for="ex1">hh:mm:ss max 99:59:59</label>
-      <input id="ex1" type="text">
-    </div>
-    <div>
-      <label for="ex2">hh:mm:ss max 23:59:59</label>
-      <input id="ex2" type="text">
-    </div>
-    <div>
-      <label for="ex3">hh:mm max 99:59</label>
-      <input id="ex3" type="text">
-    </div>
-    <div>
-      <label for="ex4">hh:mm max 11:59</label>
-      <input id="ex4" type="text">
-    </div>
+    <section class="container-fluid">
+      <div class="form-group">
+        <label for="ex1">hh:mm:ss max 99:59:59</label>
+        <input id="ex1" type="text" class="form-control">
+      </div>
+      <pre>
+        selection(document.getElementById("ex1"));
+      </pre>
+      <div class="form-group">
+        <label for="ex2">hh:mm:ss max 23:59:59</label>
+        <input id="ex2" type="text" class="form-control">
+      </div>
+      <pre>
+        selection(document.getElementById("ex2"), {
+            'durationFormat': 'hh:mm:ss',
+            'max': 3600 * 24
+        });
+      </pre>
+      <div class="form-group">
+        <label for="ex3">hh:mm max 99:59</label>
+        <input id="ex3" type="text" class="form-control">
+      </div>
+      <pre>
+        selection(document.getElementById("ex3"), {
+            'durationFormat': 'hh:mm'
+        });
+      </pre>
+      <div class="form-group">
+        <label for="ex4">hh:mm max 11:59</label>
+        <input id="ex4" type="text" class="form-control">
+      </div>
+      <pre>
+        selection(document.getElementById("ex4"), {
+            'durationFormat': 'hh:mm',
+            'max': 3600 * 12
+        });
+      </pre>
+    </section>
    
     <script type="text/javascript" src="example.js"></script>
   </body>
