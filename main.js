@@ -221,12 +221,10 @@ class Selection {
                 case "ArrowUp":
                 case KEYUP:
                     this.increment(data.increment);
-                    this.displayValue(this.formatDuration());
                     break;
                 case "ArrowDown":
                 case KEYDOWN:
                     this.decrement(data.increment);
-                    this.displayValue(this.formatDuration());
                     break;
                 case "ArrowLeft":
                 case KEYLEFT:
@@ -262,7 +260,6 @@ class Selection {
 
                     this.increment(amount);
                     this.index += 1;
-                    this.displayValue(this.formatDuration());
                     break;
                 case "Tab":
                 case 9:
@@ -274,7 +271,10 @@ class Selection {
                 e.preventDefault();
             }
 
-            this.setSelection();
+            window.requestAnimationFrame(() => {
+                this.displayValue(this.formatDuration());
+                this.setSelection();
+            });
         };
 
         this.el.value = this.formatDuration();
