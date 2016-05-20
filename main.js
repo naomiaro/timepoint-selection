@@ -1,6 +1,13 @@
+import _assign from 'lodash.assign';
 import moment from 'moment';
 import 'moment-duration-format';
 
+let abbr = {
+    'dd': 'd',
+    'hh': 'h',
+    'mm': 'm',
+    'ss': 's'
+}
 
 let formatSelectionPoints = {
     'dd:hh:mm:ss': [0, 0, 1, 2, 2, 3, 4, 4, 5, 6, 6, 7],
@@ -35,10 +42,16 @@ const KEYDOWN = 40;
 class Selection {
     constructor(el, options) {
         this.durationFormat = options.durationFormat || 'hh:mm:ss';
+        this.viewFormat = this.durationFormat;
         this.value = options.value || 0;
         this.index = undefined;
         this.max = Math.min(options.max || Infinity, maxValue[this.durationFormat]);
         this.el = el;
+        this.useAbbr = options.useAbbr || false;
+        this.cursorMap = formatSelectionPoints[this.durationFormat];
+        this.abbr = {};
+
+        _assign(this.abbr, abbr, options.abbr || {});
 
         this.setUnits();
         this.init();
@@ -58,18 +71,45 @@ class Selection {
 
         this.units = units.slice(...unitView[this.durationFormat]);
 
-        //create start & end for input selection (excluding :)
-        this.durationFormat.split(':').forEach((val, i) => {
-            this.units[i*2].start = i*3;
-            this.units[i*2].end = i*3 + 1;
+        if (this.useAbbr) {
+            let format = [];
+            let map = [];
+            this.durationFormat.split(':').forEach((val, i) => {
+                let abbrLen = this.abbr[val].length;
+                let abbrVal = this.abbr[val];
+                format.push(val);
+                format.push(`[${abbrVal}]`);
 
-            this.units[i*2+1].start = i*3 + 1;
-            this.units[i*2+1].end = i*3 + 2;
+                //units
+                map.push(i*2);
+                map.push(i*2);
+                //sep
+                while(abbrLen) {
+                    map.push(i*2 + 1);
+                    abbrLen -= 1;
+                };
+            });
+            this.viewFormat = format.join('');
+            this.cursorMap = map;
+        }
+
+        let position = 0;
+        //create start & end for input selection (excluding :)
+        this.durationFormat.split(':').forEach((val, i, arr) => {
+            let abbrLen = this.abbr[val].length;
+
+            this.units[i*2].start = position;
+            this.units[i*2].end = position + 1;
+
+            this.units[i*2+1].start = position + 1;
+            this.units[i*2+1].end = position + 2;
+
+            position = position + 2 + abbrLen;
         });
     }
 
     formatDuration() {
-        return moment.duration(this.value, 'seconds').format(this.durationFormat, {trim: false});
+        return moment.duration(this.value, 'seconds').format(this.viewFormat, {trim: false});
     }
 
     setSelection() {
@@ -150,7 +190,7 @@ class Selection {
                 return;
             }
 
-            this.index = formatSelectionPoints[this.durationFormat][this.el.selectionStart];
+            this.index = this.cursorMap[this.el.selectionStart];
             this.setSelection();
             this.mousedown = false;
         };

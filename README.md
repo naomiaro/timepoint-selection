@@ -11,6 +11,8 @@
 
 ![Screenshot](pic.png?raw=true "23:59:59 limited selection")
 
+![Screenshot](pic2.png?raw=true "Setting separators")
+
 ## Installation
 
   `npm install timepoint-selection`
