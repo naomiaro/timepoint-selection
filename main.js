@@ -125,6 +125,11 @@ class Selection {
         this.onclick = (e) => {
             e.preventDefault();
 
+            //click occured on label, focus event handled it.
+            if (this.mousedown !== true) {
+                return;
+            }
+
             this.index = formatSelectionPoints[this.durationFormat][this.el.selectionStart];
             this.setSelection();
             this.mousedown = false;
