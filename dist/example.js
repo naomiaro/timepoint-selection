@@ -5,7 +5,6 @@ selection(document.getElementById("ex2"), {
     'max': 3600 * 24,
     'useAbbr': true,
     'abbr': {
-        'dd': 'd ',
         'hh': 'h ',
         'mm': 'm ',
         'ss': 's'

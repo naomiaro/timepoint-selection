@@ -24,8 +24,15 @@ var selection = require('timepoint-selection');
 
 var timepoint = selection(document.getElementById("input"), {
     'durationFormat': 'hh:mm:ss',
-    'max': 3600 * 24 // point of rollover in seconds.
-    'value': 0 //initial value of input in seconds.
+    'max': 3600 * 24,               // point of rollover in seconds.
+    'value': 0,                     // initial value of input in seconds.
+    'useAbbr': true,                // configure the separator to not be ':'
+    'abbr': {                       // pass in custom separator (with trailing space if desired)
+      'dd': 'days ',
+      'hh': 'h ',
+      'mm': 'm ',
+      'ss': 's'
+    }
 });
 
 //returns the current value of the input in seconds.
