@@ -1,6 +1,6 @@
 {
   "name": "timepoint-selection",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Key controlled time input duration selection",
   "main": "index.js",
   "scripts": {
