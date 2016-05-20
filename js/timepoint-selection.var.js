@@ -207,6 +207,9 @@ var selection =
 	    }, {
 	        key: 'setValue',
 	        value: function setValue(value) {
+	            value = Math.max(value, 0);
+	            value = value % this.max;
+	
 	            this.value = value;
 	            this.displayValue(this.formatDuration());
 	        }
