@@ -1,5 +1,7 @@
 #timepoint-selection
 
+[![npm](https://img.shields.io/npm/dm/timepoint-selection.svg)](https://www.npmjs.com/package/timepoint-selection)
+
 **Enhance input elements with easy key entry and validation for time durations**. Library is in pure javascript, no framework is needed. Event handlers are added directly to the input and the package includes a destroy method to remove all added events.
 * Input numbers directly or increment and decrement with up and down arrow keys.
 * Left and right arrow keys navigate through the input selecting the next important character for entry.
