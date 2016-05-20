@@ -6,7 +6,8 @@ selection(document.getElementById("ex2"), {
 });
 
 selection(document.getElementById("ex3"), {
-    'durationFormat': 'hh:mm'
+    'durationFormat': 'hh:mm',
+    'value': 3600 * 2 + 60 * 30 
 });
 
 selection(document.getElementById("ex4"), {

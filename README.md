@@ -23,7 +23,11 @@ var selection = require('timepoint-selection');
 var timepoint = selection(document.getElementById("input"), {
     'durationFormat': 'hh:mm:ss',
     'max': 3600 * 24 // point of rollover in seconds.
+    'value': 0 //initial value of input in seconds.
 });
+
+//returns the current value of the input in seconds.
+timepoint.getValue();
 
 //remove all the event listeners from the input.
 timepoint.destroy();
@@ -35,6 +39,8 @@ Accepted duration formats:
 - 'hh:mm:ss'
 - 'hh:mm'
 - 'mm:ss'
+
+d = days, h = hours, m = minutes, s = seconds
 
 ## Examples
 

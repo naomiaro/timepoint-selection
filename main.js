@@ -35,7 +35,7 @@ const KEYDOWN = 40;
 class Selection {
     constructor(el, options) {
         this.durationFormat = options.durationFormat || 'hh:mm:ss';
-        this.value = 0;
+        this.value = options.value || 0;
         this.index = undefined;
         this.max = Math.min(options.max || Infinity, maxValue[this.durationFormat]);
         this.el = el;
@@ -127,6 +127,10 @@ class Selection {
         }
 
         return ((e.which || e.keyCode) - 48);
+    }
+
+    getValue() {
+        return this.value;
     }
 
     init() {
