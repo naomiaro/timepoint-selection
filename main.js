@@ -3,18 +3,24 @@ import 'moment-duration-format';
 
 
 let formatSelectionPoints = {
+    'dd:hh:mm:ss': [0, 0, 1, 2, 2, 3, 4, 4, 5, 6, 6, 7],
+    'dd:hh:mm': [0, 0, 1, 2, 2, 3, 4, 4, 5],
     'hh:mm:ss': [0, 0, 1, 2, 2, 3, 4, 4, 5],
     'hh:mm': [0, 0, 1, 2, 2, 3],
     'mm:ss': [0, 0, 1, 2, 2, 3]
 };
 
 let unitView = {
-    'hh:mm:ss': [],
-    'hh:mm': [0, 4],
-    'mm:ss': [2, 6]
+    'dd:hh:mm:ss': [],
+    'dd:hh:mm': [0, 6],
+    'hh:mm:ss': [2, 8],
+    'hh:mm': [2, 6],
+    'mm:ss': [4, 8]
 }
 
 let maxValue = {
+    'dd:hh:mm:ss': 86400 * 100,
+    'dd:hh:mm': 86400 * 100,
     'hh:mm:ss': 3600 * 100,
     'hh:mm': 3600 * 100,
     'mm:ss': 60 * 100
@@ -40,6 +46,8 @@ class Selection {
 
     setUnits() {
         let units = [
+            {increment: 864000},
+            {increment: 86400},
             {increment: 36000},
             {increment: 3600},
             {increment: 600},
