@@ -43,7 +43,13 @@
       </div>
 <pre><code class="javascript">selection(document.getElementById("ex2"), {
   'durationFormat': 'hh:mm:ss',
-  'max': 3600 * 24
+  'max': 3600 * 24,
+  'useAbbr': true,
+  'abbr': {
+      'hh': 'h ',
+      'mm': 'm ',
+      'ss': 's'
+  }
 });</code></pre>
       <div class="form-group">
         <label for="ex3">hh:mm max 99:59</label>
@@ -51,7 +57,8 @@
       </div>
 <pre><code class="javascript">selection(document.getElementById("ex3"), {
   'durationFormat': 'hh:mm',
-  'value': 3600 * 2 + 60 * 30
+  'value': 3600 * 2 + 60 * 30,
+  'useAbbr': true
 });</code></pre>
       <div class="form-group">
         <label for="ex4">hh:mm max 11:59</label>
@@ -66,7 +73,14 @@
         <input id="ex5" type="text" class="form-control">
       </div>
 <pre><code class="javascript">selection(document.getElementById("ex5"), {
-  'durationFormat': 'dd:hh:mm:ss'
+  'durationFormat': 'dd:hh:mm:ss',
+  'useAbbr': true,
+  'abbr': {
+    'dd': 'days ',
+    'hh': 'h ',
+    'mm': 'm ',
+    'ss': 's'
+  }
 });</code></pre>
       <div class="form-group">
         <label for="ex6">dd:hh:mm max 99:23:59</label>
