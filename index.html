@@ -50,7 +50,8 @@
         <input id="ex3" type="text" class="form-control">
       </div>
 <pre><code class="javascript">selection(document.getElementById("ex3"), {
-  'durationFormat': 'hh:mm'
+  'durationFormat': 'hh:mm',
+  'value': 3600 * 2 + 60 * 30
 });</code></pre>
       <div class="form-group">
         <label for="ex4">hh:mm max 11:59</label>
@@ -59,6 +60,20 @@
 <pre><code class="javascript">selection(document.getElementById("ex4"), {
   'durationFormat': 'hh:mm',
   'max': 3600 * 12
+});</code></pre>
+      <div class="form-group">
+        <label for="ex5">dd:hh:mm:ss max 99:23:59:59</label>
+        <input id="ex5" type="text" class="form-control">
+      </div>
+<pre><code class="javascript">selection(document.getElementById("ex5"), {
+  'durationFormat': 'dd:hh:mm:ss'
+});</code></pre>
+      <div class="form-group">
+        <label for="ex6">dd:hh:mm max 99:23:59</label>
+        <input id="ex6" type="text" class="form-control">
+      </div>
+<pre><code class="javascript">selection(document.getElementById("ex6"), {
+  'durationFormat': 'dd:hh:mm'
 });</code></pre>
     </section>
    

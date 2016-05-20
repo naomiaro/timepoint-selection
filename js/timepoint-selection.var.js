@@ -73,18 +73,24 @@ var selection =
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
 	var formatSelectionPoints = {
+	    'dd:hh:mm:ss': [0, 0, 1, 2, 2, 3, 4, 4, 5, 6, 6, 7],
+	    'dd:hh:mm': [0, 0, 1, 2, 2, 3, 4, 4, 5],
 	    'hh:mm:ss': [0, 0, 1, 2, 2, 3, 4, 4, 5],
 	    'hh:mm': [0, 0, 1, 2, 2, 3],
 	    'mm:ss': [0, 0, 1, 2, 2, 3]
 	};
 	
 	var unitView = {
-	    'hh:mm:ss': [],
-	    'hh:mm': [0, 4],
-	    'mm:ss': [2, 6]
+	    'dd:hh:mm:ss': [],
+	    'dd:hh:mm': [0, 6],
+	    'hh:mm:ss': [2, 8],
+	    'hh:mm': [2, 6],
+	    'mm:ss': [4, 8]
 	};
 	
 	var maxValue = {
+	    'dd:hh:mm:ss': 86400 * 100,
+	    'dd:hh:mm': 86400 * 100,
 	    'hh:mm:ss': 3600 * 100,
 	    'hh:mm': 3600 * 100,
 	    'mm:ss': 60 * 100
@@ -100,7 +106,7 @@ var selection =
 	        _classCallCheck(this, Selection);
 	
 	        this.durationFormat = options.durationFormat || 'hh:mm:ss';
-	        this.value = 0;
+	        this.value = options.value || 0;
 	        this.index = undefined;
 	        this.max = Math.min(options.max || Infinity, maxValue[this.durationFormat]);
 	        this.el = el;
@@ -114,7 +120,7 @@ var selection =
 	        value: function setUnits() {
 	            var _this = this;
 	
-	            var units = [{ increment: 36000 }, { increment: 3600 }, { increment: 600 }, { increment: 60 }, { increment: 10 }, { increment: 1 }];
+	            var units = [{ increment: 864000 }, { increment: 86400 }, { increment: 36000 }, { increment: 3600 }, { increment: 600 }, { increment: 60 }, { increment: 10 }, { increment: 1 }];
 	
 	            this.units = units.slice.apply(units, _toConsumableArray(unitView[this.durationFormat]));
 	
@@ -192,6 +198,17 @@ var selection =
 	            }
 	
 	            return (e.which || e.keyCode) - 48;
+	        }
+	    }, {
+	        key: 'getValue',
+	        value: function getValue() {
+	            return this.value;
+	        }
+	    }, {
+	        key: 'setValue',
+	        value: function setValue(value) {
+	            this.value = value;
+	            this.displayValue(this.formatDuration());
 	        }
 	    }, {
 	        key: 'init',
