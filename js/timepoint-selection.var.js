@@ -303,12 +303,10 @@ var selection =
 	                    case "ArrowUp":
 	                    case KEYUP:
 	                        _this2.increment(data.increment);
-	                        _this2.displayValue(_this2.formatDuration());
 	                        break;
 	                    case "ArrowDown":
 	                    case KEYDOWN:
 	                        _this2.decrement(data.increment);
-	                        _this2.displayValue(_this2.formatDuration());
 	                        break;
 	                    case "ArrowLeft":
 	                    case KEYLEFT:
@@ -344,7 +342,6 @@ var selection =
 	
 	                        _this2.increment(amount);
 	                        _this2.index += 1;
-	                        _this2.displayValue(_this2.formatDuration());
 	                        break;
 	                    case "Tab":
 	                    case 9:
@@ -356,7 +353,10 @@ var selection =
 	                    e.preventDefault();
 	                }
 	
-	                _this2.setSelection();
+	                window.requestAnimationFrame(function () {
+	                    _this2.displayValue(_this2.formatDuration());
+	                    _this2.setSelection();
+	                });
 	            };
 	
 	            this.el.value = this.formatDuration();
