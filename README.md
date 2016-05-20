@@ -29,6 +29,9 @@ var timepoint = selection(document.getElementById("input"), {
 //returns the current value of the input in seconds.
 timepoint.getValue();
 
+//sets the current value of the input in seconds.
+timepoint.setValue(seconds);
+
 //remove all the event listeners from the input.
 timepoint.destroy();
 ```

@@ -133,6 +133,11 @@ class Selection {
         return this.value;
     }
 
+    setValue(value) {
+        this.value = value;
+        this.displayValue(this.formatDuration());
+    }
+
     init() {
         this.onclick = (e) => {
             e.preventDefault();
