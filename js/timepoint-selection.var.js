@@ -351,12 +351,12 @@ var selection =
 	
 	                if (shouldPreventDefault) {
 	                    e.preventDefault();
-	                }
 	
-	                window.requestAnimationFrame(function () {
-	                    _this2.displayValue(_this2.formatDuration());
-	                    _this2.setSelection();
-	                });
+	                    window.requestAnimationFrame(function () {
+	                        _this2.displayValue(_this2.formatDuration());
+	                        _this2.setSelection();
+	                    });
+	                }
 	            };
 	
 	            this.el.value = this.formatDuration();
