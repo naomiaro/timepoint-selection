@@ -269,12 +269,12 @@ class Selection {
 
             if (shouldPreventDefault) {
                 e.preventDefault();
-            }
 
-            window.requestAnimationFrame(() => {
-                this.displayValue(this.formatDuration());
-                this.setSelection();
-            });
+                window.requestAnimationFrame(() => {
+                    this.displayValue(this.formatDuration());
+                    this.setSelection();
+                });
+            }
         };
 
         this.el.value = this.formatDuration();
