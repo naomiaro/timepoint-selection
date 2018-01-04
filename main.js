@@ -132,7 +132,7 @@ class Selection {
         let data = this.units[this.index];
         let max = this.max;
 
-        if (this.max % data.increment !== 0) {
+        if (this.max % data.increment !== 0 && this.max > data.increment) {
             max = this.max + data.increment - (this.max % data.increment);
         }
 
@@ -154,7 +154,7 @@ class Selection {
         let max = this.getNormalizedMax();
 
         if ((this.value + amount) >= this.max) {
-            this.value = Math.max(this.value - max + amount, 0);
+            this.value = (this.value + amount) % max;
         }
         else {
             this.value += amount;
