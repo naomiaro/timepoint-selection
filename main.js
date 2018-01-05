@@ -132,11 +132,11 @@ class Selection {
         let data = this.units[this.index];
         let max = this.max;
 
-        if (this.max % data.increment !== 0 && this.max > data.increment) {
+        if (this.max % data.increment !== 0) {
             max = this.max + data.increment - (this.max % data.increment);
         }
 
-        return max;
+        return Math.min(max, this.max);
     }
 
     decrement(amount) {
