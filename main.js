@@ -143,7 +143,7 @@ class Selection {
         let max = this.getNormalizedMax();
 
         if ((this.value - amount) < 0) {
-            this.value = this.value + max - amount;
+            this.value = Math.max(this.value + max - amount, 0);
         }
         else {
             this.value -= amount; 
