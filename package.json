@@ -6,8 +6,10 @@
   "scripts": {
     "compile": "babel main.js --out-file index.js",
     "deploy": "webpack && gh-pages -d dist -b gh-pages -o origin",
-    "prepublish": "npm run compile && npm run deploy",
-    "start": "node_modules/webpack-dev-server/bin/webpack-dev-server.js --content-base dist/ --colors --inline --host 0.0.0.0"
+    "start": "node_modules/webpack-dev-server/bin/webpack-dev-server.js --content-base dist/ --colors --inline --host 0.0.0.0",
+    "version": "webpack && git add -A dist",
+    "postversion": "git push && git push --tags",
+    "prepublishOnly": "npm run compile"
   },
   "babel": {
     "presets": [
